@@ -1,0 +1,10 @@
+cffi
+git+git://github.com/scrapy/scrapy.git@master
+cryptography
+scrapyd
+beautifulsoup4
+pillow
+boto
+arrow
+sqlalchemy
+psycopg2
