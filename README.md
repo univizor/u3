@@ -20,13 +20,14 @@ initdb -E utf8 db/pg-data -U postgres
 psql -U postgres -c "CREATE DATABASE u3_dev;"
 ```
 
-## Scrapers
+## Supported scrapers
 
-|   Scraper                     |   Homepage                                                                              |
-|-------------------------------|-----------------------------------------------------------------------------------------|
-| [bf](feeder/spiders/bf.py)    | [digitalna-knjiznica.bf.uni-lj.si](http://www.digitalna-knjiznica.bf.uni-lj.si)         |
-| [rul](feeder/spiders/rul.py)  | [repozitorij.uni-lj.si](https://repozitorij.uni-lj.si/info/index.php/slo/)              |
-| [dkum](feeder/spiders/dkum.py)| [dk.um.si](https://dk.um.si)                                                            |
+|   Scraper                     |   Homepage                                                                     | State  |
+|-------------------------------|--------------------------------------------------------------------------------|--------|
+| [rul](feeder/spiders/rul.py)  | [repozitorij.uni-lj.si](https://repozitorij.uni-lj.si/info/index.php/slo/)     | Done   |
+| [dkum](feeder/spiders/dkum.py)| [dk.um.si](https://dk.um.si)                                                   | Done   |
+| [bf](feeder/spiders/bf.py)    | [digitalna-knjiznica.bf.uni-lj.si](http://www.digitalna-knjiznica.bf.uni-lj.si)| Done   |
+
 ## Scripts and tools
 
 - [refresh.sh](./refresh.sh) - Script that starts scraping in parallel fashion. New items will be added to collection.
