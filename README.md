@@ -28,6 +28,7 @@ psql -U postgres -c "CREATE DATABASE u3_dev;"
 | [dkum](feeder/spiders/dkum.py)     | [dk.um.si](https://dk.um.si)                                                   | Done   |
 | [bf](feeder/spiders/bf.py)         | [digitalna-knjiznica.bf.uni-lj.si](http://www.digitalna-knjiznica.bf.uni-lj.si)| Done   |
 | [famnit](feeder/spiders/famnit.py) | [famnit.upr.si](http://www.famnit.upr.si)                                      | Done   |
+| [ung](feeder/spiders/ung.py)       | [sabotin.ung.si](http://sabotin.ung.si)                                        | Done   |
 
 ## Scripts and tools
 

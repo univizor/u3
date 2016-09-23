@@ -18,6 +18,7 @@ COMMANDS=(
   "rul -a mode=$MODE -a pages=10 -L $LOG_LEVEL"
   "dkum -a mode=$MODE -a pages=10 -L $LOG_LEVEL"
   "fammit -a mode=refresh -L $LOG_LEVEL"
+  "ung -a mode=refresh -L $LOG_LEVEL"
 )
 
 parallel --verbose --progress -j $JOBS_IN_PARALLEL --colsep ' ' scrapy crawl {.} ::: "${COMMANDS[@]}"
