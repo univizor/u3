@@ -20,18 +20,18 @@ initdb -E utf8 db/pg-data -U postgres
 psql -U postgres -c "CREATE DATABASE u3_dev;"
 ```
 
-## Scrapers
+## Supported scrapers
 
-|   Scraper                          |   Homepage                                                                              |
-|------------------------------------|-----------------------------------------------------------------------------------------|
-| [bf](feeder/spiders/bf.py)         | [digitalna-knjiznica.bf.uni-lj.si](http://www.digitalna-knjiznica.bf.uni-lj.si)         |
-| [rul](feeder/spiders/rul.py)       | [repozitorij.uni-lj.si](https://repozitorij.uni-lj.si/info/index.php/slo/)              |
-| [dkum](feeder/spiders/dkum.py)     | [dk.um.si](https://dk.um.si)                                                            |
-| [famnit](feeder/spiders/famnit.py) | [famnit.upr.si](http://www.famnit.upr.si)                                               |
+|   Scraper                          |   Homepage                                                                     | State  |
+|------------------------------------|--------------------------------------------------------------------------------|--------|
+| [rul](feeder/spiders/rul.py)       | [repozitorij.uni-lj.si](https://repozitorij.uni-lj.si/info/index.php/slo/)     | Done   |
+| [dkum](feeder/spiders/dkum.py)     | [dk.um.si](https://dk.um.si)                                                   | Done   |
+| [bf](feeder/spiders/bf.py)         | [digitalna-knjiznica.bf.uni-lj.si](http://www.digitalna-knjiznica.bf.uni-lj.si)| Done   |
+| [famnit](feeder/spiders/famnit.py) | [famnit.upr.si](http://www.famnit.upr.si)                                      | Done   |
 
 ## Scripts and tools
 
-- [refresh.sh](./refresh.sh) - Script that starts scraping in parallel fashion. New items will be added to collection.
+- [refresh.sh](./refresh.sh) - Script that starts scraping in parallel fashion. New items will be added to collection. 
 This script should be ran on periodic intervals via `cron`.
 - [recreate_database.py](./recreate_database.py) - Drops all existing tables, and creates new tables with up-to-date structure.
 - [first_pages.sh](./tools/first_pages.sh) - Creates picture of first pages from all PDFs.
