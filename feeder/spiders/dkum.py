@@ -1,16 +1,6 @@
-from feeder.spiders import FeederSpider
-from urllib.parse import urlencode
-
 from scrapy import Request
-from scrapy.utils.response import open_in_browser, body_or_str
-from re import search, sub
-from feeder.utils import html2text
 from feeder.items import Source
 import arrow
-from re import sub
-from json import loads, load
-from pprint import pprint
-from pdb import set_trace
 from feeder.spiders.rul import RUL
 import math
 from scrapy.http import FormRequest
@@ -36,7 +26,6 @@ class DKUM(RUL):
     def parse_index(self, response):
         num_record = int(str(response.css('div.Stat::text').extract()[0].split('/')[1]))
         pages = math.ceil(num_record / 10.0) if not self.over_pages else self.over_pages
-        print("pages ~> %d" % pages)
         return [Request(response.url + "&page=%d" % page) for page in range(1, pages)]
 
     def parse_page(self, response):

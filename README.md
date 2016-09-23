@@ -22,16 +22,21 @@ psql -U postgres -c "CREATE DATABASE u3_dev;"
 
 ## Scrapers
 
-|   Scraper                     |   Homepage                                                                              |
-|-------------------------------|-----------------------------------------------------------------------------------------|
-| [bf](feeder/spiders/bf.py)    | [digitalna-knjiznica.bf.uni-lj.si](http://www.digitalna-knjiznica.bf.uni-lj.si)         |
-| [rul](feeder/spiders/rul.py)  | [repozitorij.uni-lj.si](https://repozitorij.uni-lj.si/info/index.php/slo/)              |
-| [dkum](feeder/spiders/dkum.py)| [dk.um.si](https://dk.um.si)                                                            |
+|   Scraper                          |   Homepage                                                                              |
+|------------------------------------|-----------------------------------------------------------------------------------------|
+| [bf](feeder/spiders/bf.py)         | [digitalna-knjiznica.bf.uni-lj.si](http://www.digitalna-knjiznica.bf.uni-lj.si)         |
+| [rul](feeder/spiders/rul.py)       | [repozitorij.uni-lj.si](https://repozitorij.uni-lj.si/info/index.php/slo/)              |
+| [dkum](feeder/spiders/dkum.py)     | [dk.um.si](https://dk.um.si)                                                            |
+| [famnit](feeder/spiders/famnit.py) | [famnit.upr.si](http://www.famnit.upr.si)                                               |
+
 ## Scripts and tools
 
 - [refresh.sh](./refresh.sh) - Script that starts scraping in parallel fashion. New items will be added to collection.
 This script should be ran on periodic intervals via `cron`.
 - [recreate_database.py](./recreate_database.py) - Drops all existing tables, and creates new tables with up-to-date structure.
 - [first_pages.sh](./tools/first_pages.sh) - Creates picture of first pages from all PDFs.
+- [files_for_domain.sh](./tools/files_for_domain.sh) - List local files for specific scrape domain.
+- [list_pdfs.sh](./tools/list_pdfs.sh) - List real local PDFs.
+- [list_no_pdfs.sh](./tools/list_pdfs.sh) - List real local non-PDFs.
 
 [u3]: https://github.com/univizor/u3
