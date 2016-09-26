@@ -1,5 +1,6 @@
 cffi
-git+git://github.com/scrapy/scrapy.git@master
+scrapy
+# git+git://github.com/scrapy/scrapy.git@master
 cryptography
 scrapyd
 beautifulsoup4
