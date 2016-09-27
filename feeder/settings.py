@@ -107,7 +107,8 @@ FILES_STORE = './data/files'
 DATABASE = {
     'drivername': 'postgres',
     'host': 'localhost',
-    'port': '5432',
+    #'port': '5432',
+    'port': '7000',
     'username': 'postgres',
     # 'password': 'YOUR_PASSWORD',
     'database': 'u3_dev'

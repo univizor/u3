@@ -9,3 +9,5 @@ boto
 arrow
 sqlalchemy
 psycopg2
+hdfs
+pywebhdfs
