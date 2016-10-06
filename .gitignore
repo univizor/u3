@@ -1,3 +1,7 @@
+*.zip
+*.tar.gz
+
+creds.txt
 tools/h_*.sh
 
 tmp/
