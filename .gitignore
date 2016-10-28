@@ -1,5 +1,7 @@
+s3.conf
 *.zip
 *.tar.gz
+*.tar.gz*
 
 creds.txt
 tools/h_*.sh

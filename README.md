@@ -32,12 +32,20 @@ psql -U postgres -c "CREATE DATABASE u3_dev;"
 
 ## Scripts and tools
 
-- [refresh.sh](./refresh.sh) - Script that starts scraping in parallel fashion. New items will be added to collection. 
+- [refresh.sh](./refresh.sh) - Script that starts scraping in parallel fashion. New items will be added to collection.
 This script should be ran on periodic intervals via `cron`.
 - [recreate_database.py](./recreate_database.py) - Drops all existing tables, and creates new tables with up-to-date structure.
 - [first_pages.sh](./tools/first_pages.sh) - Creates picture of first pages from all PDFs.
 - [files_for_domain.sh](./tools/files_for_domain.sh) - List local files for specific scrape domain.
 - [list_pdfs.sh](./tools/list_pdfs.sh) - List real local PDFs.
 - [list_no_pdfs.sh](./tools/list_pdfs.sh) - List real local non-PDFs.
+
+## File Syncing
+
+```bash
+tar -cvzf - data/ | split -b 1000m - "sample-files.tar.gz."
+s3cmd put -c s3.conf --no-check-md5 -v --progress sample-files.tar.gz.a* s3://univizor/
+cat sample-files.tar.gz.* > sample-files.tar.gz
+```
 
 [u3]: https://github.com/univizor/u3
