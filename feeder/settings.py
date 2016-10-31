@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from os import getenv
 
 # Scrapy settings for startproject project
 #
@@ -113,3 +114,5 @@ DATABASE = {
     # 'password': 'YOUR_PASSWORD',
     'database': 'u3_dev'
 }
+
+HASHING_ALGORITHM = getenv("HASHING_ALGORITHM", "sha256") # 'sha1'
