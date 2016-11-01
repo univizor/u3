@@ -1,15 +1,13 @@
 from sqlalchemy import *
 from sqlalchemy.engine.url import URL
 from sqlalchemy.ext.declarative import declarative_base, declared_attr
-from feeder.settings import DATABASE
+from feeder.settings import DATABASE_URL
 from datetime import datetime
 from sqlalchemy.dialects import postgresql
 from psycopg2.extensions import register_adapter, AsIs, adapt, register_type
 from sqlalchemy.dialects.postgresql import UUID
 import arrow
 import uuid
-from pdb import set_trace
-
 
 def adapt_arrow(arrow_date):
     return AsIs("'%s'::timestamptz" % str(arrow_date))
@@ -26,7 +24,7 @@ Base = declarative_base()
 
 
 def db_connect():
-    return create_engine(URL(**DATABASE), echo=False)
+    return create_engine(DATABASE_URL, echo=False)
 
 
 class DBSource(Base):

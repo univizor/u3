@@ -4,7 +4,6 @@ from urllib.parse import urlencode
 from scrapy import Request
 from scrapy.utils.response import open_in_browser, body_or_str
 from re import search, sub
-from feeder.utils import html2text
 from feeder.items import Source
 import arrow
 from re import sub
