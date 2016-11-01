@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from os import getenv
+from sqlalchemy.engine.url import URL
 
 # Scrapy settings for startproject project
 #
@@ -21,12 +22,12 @@ NEWSPIDER_MODULE = 'feeder.spiders'
 ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 32
+CONCURRENT_REQUESTS = int(getenv("CONCURRENT_REQUESTS", "32"))
 
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-# DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = int(getenv("DOWNLOAD_DELAY", "3"))
 # The download delay setting will honor only one of:
 # CONCURRENT_REQUESTS_PER_DOMAIN = 16
 # CONCURRENT_REQUESTS_PER_IP = 16
@@ -98,21 +99,18 @@ ITEM_PIPELINES = {
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-# Images
-IMAGES_STORE = './data/images'
-IMAGES_MIN_WIDTH = 300  # 460
-
-# FILES_STORE = './data/files-rul'
-FILES_STORE = './data/files'
+FILES_STORE = getenv('FILES_STORE', './data/files')
 
 DATABASE = {
     'drivername': 'postgres',
     'host': 'localhost',
-    #'port': '5432',
     'port': '7000',
     'username': 'postgres',
-    # 'password': 'YOUR_PASSWORD',
     'database': 'u3_dev'
+    # 'port': '5432',
+    # 'password': 'YOUR_PASSWORD',
 }
 
-HASHING_ALGORITHM = getenv("HASHING_ALGORITHM", "sha256") # 'sha1'
+DATABASE_URL = getenv('DATABASE_URL', URL(**DATABASE))
+
+HASHING_ALGORITHM = getenv("HASHING_ALGORITHM", "sha256")  # 'sha1'
