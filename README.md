@@ -1,6 +1,6 @@
 # u3
 
-[u3] is scraper and feeder for univizor project.
+[u3] is scraper and feeder for [univizor] project.
 
 ## Setup
 
@@ -18,6 +18,12 @@ Initialize PostgreSQL database
 ```bash
 initdb -E utf8 db/pg-data -U postgres
 psql -U postgres -c "CREATE DATABASE u3_dev;"
+```
+
+Run PostgreSQL locally on port 7000:
+
+```bash
+postgres -D db/pg-data -p 7000
 ```
 
 ## Supported scrapers
@@ -48,4 +54,17 @@ s3cmd put -c s3.conf --no-check-md5 -v --progress sample-files.tar.gz.a* s3://un
 cat sample-files.tar.gz.* > sample-files.tar.gz
 ```
 
+## Configuration
+
+This is default configuration that can be overriden by setting `ENV` variables.
+
+```
+CONCURRENT_REQUESTS = 32
+DOWNLOAD_DELAY = 3
+FILES_STORE = ./data/files
+DATABASE_URL = ...
+HASHING_ALGORITHM = sha256 
+```
+
 [u3]: https://github.com/univizor/u3
+[univizor]: http://univizor.si
