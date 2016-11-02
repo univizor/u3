@@ -5,3 +5,4 @@ scrapyd
 arrow
 sqlalchemy
 psycopg2
+dumb-init
