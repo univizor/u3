@@ -2,6 +2,10 @@
 
 [u3] is scraper and feeder for [univizor] project.
 
+[![Docker Pulls][docker-pulls-badge]][docker-hub]
+
+[![Docker Stars][docker-stars-badge]][docker-hub]
+
 ## Setup
 
 Prepare Python3 with virtualenv wrapper.
@@ -108,3 +112,8 @@ docker build -t univizor/u3:latest .
 
 [u3]: https://github.com/univizor/u3
 [univizor]: http://univizor.si
+[imagelayers-badge]: https://badge.imagelayers.io/univizor/u3:latest.svg
+[imagelayers]: https://imagelayers.io/?images=univizor/u3:latest
+[docker-pulls-badge]: https://img.shields.io/docker/pulls/univizor/u3.svg
+[docker-stars-badge]: https://img.shields.io/docker/stars/univizor/u3.svg
+[docker-hub]: https://hub.docker.com/r/univizor/u3/
