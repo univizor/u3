@@ -66,5 +66,45 @@ DATABASE_URL = ...
 HASHING_ALGORITHM = sha256 
 ```
 
+## Docker
+
+Start new PostgreSQL container for meta storage:
+
+```bash
+docker run -ti --rm --name pg --env POSTGRES_DB=u3_dev postgres:latest
+```
+
+Create meta storage tables with [recreate_database.py](recreate_database.py) script:
+
+```bash
+docker run -ti --rm --name u3 --link pg \
+  --env DATABASE_URL="postgresql://postgres:@pg:5432/u3_dev" \
+  --entrypoint "python" \
+  u3:latest "./recreate_database.py"
+```
+
+Start crawling,... In this example with [bf](feeder/spiders/bf.py) spider.
+
+```bash
+docker run -ti --rm \ 
+  --name u3 \
+  --link pg \
+  --env DATABASE_URL="postgresql://postgres:@pg:5432/u3_dev" \
+  u3:latest bf -a categories=biologija
+```
+
+> Some other crawling options can be seen in [refresh.sh](./refresh.sh).
+
+If you need to rebuild image
+
+```bash
+docker build -t u3:latest .
+```
+
+## Contributors
+
+- [Oto Brglez](https://github.com/otobrglez)
+- [Jozko Skrablin](https://github.com/jozko)
+
 [u3]: https://github.com/univizor/u3
 [univizor]: http://univizor.si
