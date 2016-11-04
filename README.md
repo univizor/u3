@@ -80,7 +80,7 @@ Create meta storage tables with [recreate_database.py](recreate_database.py) scr
 docker run -ti --rm --name u3 --link pg \
   --env DATABASE_URL="postgresql://postgres:@pg:5432/u3_dev" \
   --entrypoint "python" \
-  u3:latest "./recreate_database.py"
+  univizor/u3:latest "./recreate_database.py"
 ```
 
 Start crawling,... In this example with [bf](feeder/spiders/bf.py) spider.
@@ -90,7 +90,7 @@ docker run -ti --rm \
   --name u3 \
   --link pg \
   --env DATABASE_URL="postgresql://postgres:@pg:5432/u3_dev" \
-  u3:latest bf -a categories=biologija
+  univizor/u3:latest bf -a categories=biologija
 ```
 
 > Some other crawling options can be seen in [refresh.sh](./refresh.sh).
@@ -98,7 +98,7 @@ docker run -ti --rm \
 If you need to rebuild image
 
 ```bash
-docker build -t u3:latest .
+docker build -t univizor/u3:latest .
 ```
 
 ## Contributors
