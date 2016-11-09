@@ -4,3 +4,6 @@ db
 db/
 tmp
 tmp/
+.env
+creds.txt
+s3.conf

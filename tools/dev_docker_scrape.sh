@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -ex
+set -e
 
 DATABASE_URL="postgresql://postgres:@pg:5432/u3_dev"
 IMAGE=univizor/u3
@@ -17,7 +17,7 @@ docker run -ti \
   -v `pwd`:/home/u3 \
   -v `pwd`/data/files-dev:/home/u3/data/files \
   --link pg \
-  --link dogstatsd \
+  --link grafana \
   --env DATABASE_URL=$DATABASE_URL \
   --env DOWNLOAD_DELAY=1 \
   $IMAGE $@
