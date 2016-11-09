@@ -1,8 +1,7 @@
 cffi
 scrapy==1.2.1
 cryptography
-scrapyd
 arrow
-sqlalchemy
+SQLAlchemy
 psycopg2
-dumb-init
+datadog

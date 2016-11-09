@@ -59,9 +59,11 @@ TELNETCONSOLE_ENABLED = False
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
-# EXTENSIONS = {
-#    'scrapy.extensions.telnet.TelnetConsole': None,
-# }
+
+EXTENSIONS = {
+    #    'scrapy.extensions.telnet.TelnetConsole': None,
+    'feeder.extensions.stats.DatadogStats': 500
+}
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
@@ -114,3 +116,8 @@ DATABASE = {
 DATABASE_URL = getenv('DATABASE_URL', URL(**DATABASE))
 
 HASHING_ALGORITHM = getenv("HASHING_ALGORITHM", "sha256")  # 'sha1'
+
+# Stats (Datadog)
+DOGSTATSD_ADDR = getenv("DOGSTATSD_PORT_8125_UDP_ADDR", getenv("DOGSTATSD_ADDR"))
+DOGSTATSD_PORT = int(getenv("DOGSTATSD_PORT_8125_UDP_PORT", getenv("DOGSTATSD_PORT", "0")))
+PERSIST_STATS_INTERVAL = int(getenv("PERSIST_STATS_INTERVAL", 10))
