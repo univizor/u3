@@ -4,6 +4,7 @@ from twisted.internet.task import LoopingCall
 from feeder.settings import DOGSTATSD_ADDR, DOGSTATSD_PORT, PERSIST_STATS_INTERVAL
 from datadog import statsd, DogStatsd
 from pdb import set_trace
+from pprint import pprint
 
 
 class DatadogStats(object):
@@ -29,14 +30,11 @@ class DatadogStats(object):
             # constant_tags=[]
         )
 
-    def increment(self, value, tags=None):
-        # TODO: This his horrible!
-        if tags or 1 == 2:
-            new_value = value.replace(".spider",
-                                      "." + (".".join([x.replace(":", ".") for x in tags])))
-            self.statsd.increment(new_value)
-        else:
-            self.statsd.increment(value, tags=tags)
+    def increment(self, metric, value=1, tags=None):
+        self.statsd.increment(metric, value=1, tags=tags)
+
+    def gauge(self, metric, value, tags=None):
+        self.statsd.gauge(metric, value=value, tags=tags)
 
     def spider_opened(self, spider):
         task = self.tasks[spider.name] = LoopingCall(self.persist_stats, spider)
@@ -55,13 +53,17 @@ class DatadogStats(object):
         self.increment("u3.spider.spider_error", tags=['spider:%s' % spider.name])
 
     def item_scraped(self, item, spider):
+        self.items_scraped += 1
         self.increment("u3.spider.item_scraped", tags=['spider:%s' % spider.name])
-
-        # self.items_scraped += 1
-        # if self.items_scraped % self.item_count == 0:
-        #    logger.info("scraped %d items", self.items_scraped)
+        self.increment("u3.spider.items_scraped", tags=['spider:%s' % spider.name])
 
     def persist_stats(self, spider):
-        # data = spider.crawler.stats.get_stats()
-        # spider.logger.info("\n\nPersisting stats:\n%s", data)
-        self.increment("u3.spider.persist_stats", tags=['spider:%s' % spider.name])
+        tags = ['spider:%s' % spider.name]
+        self.increment("u3.spider.persist_stats", tags=tags)
+        data = spider.crawler.stats.get_stats()
+        normal_data = {("u3.spider.%s" % k.replace("/", ".")): v for k, v in data.items() if isinstance(v, int)}
+        for k, v in normal_data.items():
+            if "count" in k:
+                self.increment(k, v, tags=tags)
+            else:
+                self.gauge(k, v, tags=tags)

@@ -17,7 +17,7 @@ docker run -ti \
   -v `pwd`:/home/u3 \
   -v `pwd`/data/files-dev:/home/u3/data/files \
   --link pg \
-  --link grafana \
+  --link dogstatsd \
   --env DATABASE_URL=$DATABASE_URL \
   --env DOWNLOAD_DELAY=1 \
   $IMAGE $@
