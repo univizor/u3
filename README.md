@@ -11,8 +11,8 @@
 Prepare Python3 with virtualenv wrapper.
 
 ```bash
-mkvirtualenv --no-site-packages --python=/usr/local/Cellar/python3/3.5.2_1/bin/python3 u3
-
+PYTHON_PATH=/usr/local/Cellar/python3/3.5.2_1/bin/python3
+mkvirtualenv --no-site-packages --python=$PYTHON_PATH u3
 env LDFLAGS="-L$(brew --prefix openssl)/lib" CFLAGS="-I$(brew --prefix openssl)/include" \
   pip install --upgrade -r requirements.txt
 ```
@@ -50,24 +50,19 @@ This script should be ran on periodic intervals via `cron`.
 - [list_pdfs.sh](./tools/list_pdfs.sh) - List real local PDFs.
 - [list_no_pdfs.sh](./tools/list_pdfs.sh) - List real local non-PDFs.
 
-## File Syncing
-
-```bash
-tar -cvzf - data/ | split -b 1000m - "sample-files.tar.gz."
-s3cmd put -c s3.conf --no-check-md5 -v --progress sample-files.tar.gz.a* s3://univizor/
-cat sample-files.tar.gz.* > sample-files.tar.gz
-```
-
 ## Configuration
 
 This is default configuration that can be overriden by setting `ENV` variables.
 
 ```
-CONCURRENT_REQUESTS = 32
+CONCURRENT_REQUESTS = 16
 DOWNLOAD_DELAY = 3
 FILES_STORE = ./data/files
-DATABASE_URL = ...
 HASHING_ALGORITHM = sha256 
+DATABASE_URL = ...
+PERSIST_STATS_INTERVAL = 10
+DOGSTATSD_ADDR = ... 
+DOGSTATSD_PORT = ...
 ```
 
 ## Docker

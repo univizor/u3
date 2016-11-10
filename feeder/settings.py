@@ -22,7 +22,7 @@ NEWSPIDER_MODULE = 'feeder.spiders'
 ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = int(getenv("CONCURRENT_REQUESTS", "32"))
+CONCURRENT_REQUESTS = int(getenv("CONCURRENT_REQUESTS", "16"))
 
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
@@ -38,6 +38,12 @@ COOKIES_DEBUG = False
 
 # Disable Telnet Console (enabled by default)
 TELNETCONSOLE_ENABLED = False
+
+# Stats (Datadog)
+DOGSTATSD_ADDR = getenv("DOGSTATSD_PORT_8125_UDP_ADDR", getenv("GRAFANA_PORT_8125_UDP_ADDR", getenv("DOGSTATSD_ADDR")))
+DOGSTATSD_PORT = int(
+    getenv("DOGSTATSD_PORT_8125_UDP_PORT", getenv("GRAFANA_PORT_8125_UDP_PORT", getenv("DOGSTATSD_PORT", "0"))))
+PERSIST_STATS_INTERVAL = int(getenv("PERSIST_STATS_INTERVAL", 10))
 
 # Override the default request headers:
 # DEFAULT_REQUEST_HEADERS = {
@@ -59,9 +65,14 @@ TELNETCONSOLE_ENABLED = False
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
-# EXTENSIONS = {
-#    'scrapy.extensions.telnet.TelnetConsole': None,
-# }
+
+EXTENSIONS = {
+    # 'scrapy.extensions.telnet.TelnetConsole': None,
+    # 'feeder.extensions.stats.DatadogStats': 500
+}
+
+if DOGSTATSD_ADDR:
+    EXTENSIONS['feeder.extensions.stats.DatadogStats'] = 500
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
@@ -112,5 +123,4 @@ DATABASE = {
 }
 
 DATABASE_URL = getenv('DATABASE_URL', URL(**DATABASE))
-
 HASHING_ALGORITHM = getenv("HASHING_ALGORITHM", "sha256")  # 'sha1'
