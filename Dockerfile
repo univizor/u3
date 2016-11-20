@@ -28,7 +28,7 @@ RUN chown -R u3:u3 /home/u3
 
 ENV U3_USER="u3" \
   U3_HOME="/home/u3" \
-  CONCURRENT_REQUESTS="16" \
+  CONCURRENT_REQUESTS="8" \
   DOWNLOAD_DELAY="3" \
   FILES_STORE="/home/u3/data/files"
 
