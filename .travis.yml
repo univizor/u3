@@ -19,5 +19,5 @@ after_script:
     fi
   - if [ "$TRAVIS_BRANCH" == "production" ]; then
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker push univizor/u3:stable;
+    docker push univizor/u3:production;
     fi
