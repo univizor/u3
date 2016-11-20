@@ -1,0 +1,23 @@
+sudo: required
+
+language: python
+
+services:
+  - docker
+
+install: true
+
+script:
+  - echo "Travis branch is $TRAVIS_BRANCH"
+  - docker build -t univizor/u3 .
+  - docker run -it univizor/u3 scrapy -h
+
+after_script:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push univizor/u3:latest;
+    fi
+  - if [ "$TRAVIS_BRANCH" == "production" ]; then
+    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push univizor/u3:stable;
+    fi
