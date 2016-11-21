@@ -2,6 +2,8 @@
 
 [u3] is scraper and feeder for [univizor] project.
 
+[![Build status][build-status-badge]][build-status]
+
 [![Docker Pulls][docker-pulls-badge]][docker-hub]
 
 [![Docker Stars][docker-stars-badge]][docker-hub]
@@ -112,3 +114,5 @@ docker build -t univizor/u3:latest .
 [docker-pulls-badge]: https://img.shields.io/docker/pulls/univizor/u3.svg
 [docker-stars-badge]: https://img.shields.io/docker/stars/univizor/u3.svg
 [docker-hub]: https://hub.docker.com/r/univizor/u3/
+[build-status-badge]: https://travis-ci.org/univizor/u3.svg?branch=master
+[build-status]: https://travis-ci.org/univizor/u3
