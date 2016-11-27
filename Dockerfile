@@ -6,7 +6,7 @@ MAINTAINER "Jozko Skrablin"
 RUN apk add --no-cache -qq libffi gcc postgresql-dev musl-dev bash libffi-dev libffi-dev libxslt-dev zlib libjpeg-turbo-dev
 
 
-RUN adduser -D u3
+RUN adduser -D -u 3000 u3
 
 RUN mkdir -p /home/u3/data/files
 
