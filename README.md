@@ -102,6 +102,19 @@ If you need to rebuild image
 docker build -t univizor/u3:latest .
 ```
 
+## Sentry
+
+u3 now supports Sentry integration via [scrapy-sentry](https://github.com/llonchj/scrapy-sentry) library. To use, set the SENTRY_DSN enviromental variable:
+
+```bash
+docker run -ti --rm \
+  --name u3 \
+  --link pg \
+  --env DATABASE_URL="postgresql://postgres:@pg:5432/u3_dev" \
+  --env SENTRY_DSN="http://public:secret@sentry.io/12345" \
+  univizor/u3:latest bf -a categories=biologija
+```
+
 ## Contributors
 
 - [Oto Brglez](https://github.com/otobrglez)
