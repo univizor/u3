@@ -45,6 +45,9 @@ DOGSTATSD_PORT = int(
     getenv("DOGSTATSD_PORT_8125_UDP_PORT", getenv("GRAFANA_PORT_8125_UDP_PORT", getenv("DOGSTATSD_PORT", "0"))))
 PERSIST_STATS_INTERVAL = int(getenv("PERSIST_STATS_INTERVAL", 10))
 
+# Sentry exception logging
+SENTRY_DSN = getenv("SENTRY_DSN")
+
 # Override the default request headers:
 # DEFAULT_REQUEST_HEADERS = {
 #   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -73,6 +76,9 @@ EXTENSIONS = {
 
 if DOGSTATSD_ADDR:
     EXTENSIONS['feeder.extensions.stats.DatadogStats'] = 500
+
+if SENTRY_DSN:
+    EXTENSIONS['scrapy_sentry.extensions.Errors'] = 10
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
