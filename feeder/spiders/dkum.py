@@ -6,6 +6,9 @@ import math
 from scrapy.http import FormRequest
 import os
 
+# Add the temp dir settings - DKUM spider needs it
+HOMEDIR = os.getenv('HOME')
+TMPDIR = os.path.join(HOMEDIR, 'tmp/')
 
 class DKUM(RUL):
     name = "dkum"
@@ -50,23 +53,23 @@ class DKUM(RUL):
 
         file_name = str(response.headers['Content-Disposition']).split(';')[1].strip().split("=")[1][:-1]
 
-        with open('tmp/%s' % file_name, 'wb') as f:
+        with open(os.path.join(TMPDIR, file_name), 'wb') as f:
             f.write(response.body)
 
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-        file_path = (dir_path + '/tmp/%s' % file_name).replace('feeder/spiders', '', 1)
+        #dir_path = os.path.dirname(os.path.realpath(__file__))
+        file_path = os.path.join(TMPDIR, file_name).replace('feeder/spiders', '', 1)
 
         return Source(
             domain=self.domain,
             scraped_at=arrow.utcnow(),
             scraped_url=url,
-            file_urls=['file://%s' % file_path]
+            file_urls=['file://%s' % os.path.join(TMPDIR, file_name)]
         )
 
     def clear_tmp(self):
         # Remove items in tmp/
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-        file_path = (dir_path + '/tmp/*').replace('feeder/spiders', '', 1)
+        #dir_path = os.path.dirname(os.path.realpath(__file__))
+        file_path = os.path.join(TMPDIR, '*').replace('feeder/spiders', '', 1)
         os.system('rm -rf %s' % file_path)
 
     def __del__(self):

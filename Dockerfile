@@ -8,7 +8,9 @@ RUN apk add --no-cache -qq libffi gcc postgresql-dev musl-dev bash libffi-dev li
 
 RUN adduser -D -u 3000 u3
 
+RUN mkdir -p /home/u3/tmp
 RUN mkdir -p /home/u3/data/files
+
 
 ADD . /home/u3
 
