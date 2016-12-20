@@ -14,7 +14,7 @@ ADD . /home/u3
 
 RUN chown -R u3:u3 /home/u3
 
-ADD ./run-scrapy.sh /usr/local/bin/run-scrapy.sh
+ADD ./bin/run-scrapy.sh /usr/local/bin/run-scrapy.sh
 RUN chmod +x /usr/local/bin/run-scrapy.sh
 
 RUN pip install dumb-init

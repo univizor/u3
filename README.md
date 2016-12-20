@@ -31,7 +31,7 @@ If you need to rebuild image
 docker build -t univizor/u3:latest .
 ```
 
-> Some crawling options can be seen in [refresh.sh](./refresh.sh).
+> Some crawling options can be seen in [refresh.sh](./bin/refresh.sh).
 
 ## Running natively
 
@@ -40,15 +40,8 @@ Please read [NATIVE.md](NATIVE.md).
 
 ## Scripts and tools
 
-> This collection is deprecated.
-
-- [refresh.sh](./refresh.sh) - Script that starts scraping in parallel fashion. New items will be added to collection.
+- [refresh.sh](./bin/refresh.sh) - Script that starts scraping in parallel fashion. New items will be added to collection.
 This script should be ran on periodic intervals via `cron`.
-- [recreate_database.py](./recreate_database.py) - Drops all existing tables, and creates new tables with up-to-date structure.
-- [first_pages.sh](./tools/first_pages.sh) - Creates picture of first pages from all PDFs.
-- [files_for_domain.sh](./tools/files_for_domain.sh) - List local files for specific scrape domain.
-- [list_pdfs.sh](./tools/list_pdfs.sh) - List real local PDFs.
-- [list_no_pdfs.sh](./tools/list_pdfs.sh) - List real local non-PDFs.
 
 ## Configuration
 
@@ -67,7 +60,8 @@ DOGSTATSD_PORT = ...
 
 ## Sentry
 
-u3 now supports Sentry integration via [scrapy-sentry](https://github.com/llonchj/scrapy-sentry) library. To use, set the SENTRY_DSN enviromental variable:
+u3 now supports Sentry integration via [scrapy-sentry](https://github.com/llonchj/scrapy-sentry) library.
+To use, set the `SENTRY_DSN` environment variable:
 
 ```bash
 docker run -ti --rm \
