@@ -6,3 +6,4 @@ SQLAlchemy
 psycopg2
 datadog
 scrapy-sentry
+awesome-slugify

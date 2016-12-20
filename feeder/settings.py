@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from os import getenv
+from os import getenv, path, getcwd
 from sqlalchemy.engine.url import URL
 
 # Scrapy settings for startproject project
@@ -115,6 +115,8 @@ ITEM_PIPELINES = {
 # HTTPCACHE_DIR = 'httpcache'
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+TEMP_FILES_FOLDER = getenv('TEMP_FILES_FOLDER', path.join(getcwd(), "tmp/"))
 
 FILES_STORE = getenv('FILES_STORE', './data/files')
 
