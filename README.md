@@ -42,6 +42,7 @@ Please read [NATIVE.md](NATIVE.md).
 
 - [refresh.sh](./bin/refresh.sh) - Script that starts scraping in parallel fashion. New items will be added to collection.
 This script should be ran on periodic intervals via `cron`.
+- [recreate_database.py](./recreate_database.py) - Drops all existing tables, and creates new tables with up-to-date structure.
 
 ## Configuration
 
