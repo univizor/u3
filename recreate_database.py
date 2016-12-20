@@ -4,7 +4,8 @@ from feeder.models import *
 
 drop = getenv("DROP", "False")
 
-if drop is "True":
+if "True" in drop:
+    print("Droping,..")
     Base.metadata.drop_all(db_connect())
 
 Base.metadata.create_all(db_connect())
