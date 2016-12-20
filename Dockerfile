@@ -1,16 +1,12 @@
 FROM python:3.5-alpine
 
-
 MAINTAINER "Jozko Skrablin"
 
 RUN apk add --no-cache -qq libffi gcc postgresql-dev musl-dev bash libffi-dev libffi-dev libxslt-dev zlib libjpeg-turbo-dev
 
-
 RUN adduser -D -u 3000 u3
 
-RUN mkdir -p /home/u3/tmp
-RUN mkdir -p /home/u3/data/files
-
+RUN mkdir -p /home/u3/{tmp,data/files}
 
 ADD . /home/u3
 
@@ -19,8 +15,8 @@ RUN chown -R u3:u3 /home/u3
 ADD ./run-scrapy.sh /usr/local/bin/run-scrapy.sh
 RUN chmod +x /usr/local/bin/run-scrapy.sh
 
-RUN pip install dumb-init
-RUN pip install --upgrade -r /home/u3/requirements.txt
+RUN pip install dumb-init && \
+  pip install --upgrade -r /home/u3/requirements.txt
 
 WORKDIR /home/u3
 

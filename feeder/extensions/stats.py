@@ -1,10 +1,7 @@
 from scrapy import signals
-from scrapy.exceptions import NotConfigured
 from twisted.internet.task import LoopingCall
 from feeder.settings import DOGSTATSD_ADDR, DOGSTATSD_PORT, PERSIST_STATS_INTERVAL
 from datadog import statsd, DogStatsd
-from pdb import set_trace
-from pprint import pprint
 
 
 class DatadogStats(object):
