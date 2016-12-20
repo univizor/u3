@@ -1,7 +1,7 @@
 version: '2'
 services:
   pg:
-    image: postgres:latest
+    image: postgres:alpine
     environment:
       - POSTGRES_DB=u3_dev
 
@@ -27,3 +27,4 @@ services:
     command: recreate_database.py
     depends_on:
       - pg
+    restart: on-failure:3
