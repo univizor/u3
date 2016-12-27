@@ -8,29 +8,6 @@
 
 [![Docker Stars][docker-stars-badge]][docker-hub]
 
-## Setup
-
-Prepare Python3 with virtualenv wrapper.
-
-```bash
-PYTHON_PATH=/usr/local/Cellar/python3/3.5.2_1/bin/python3
-mkvirtualenv --no-site-packages --python=$PYTHON_PATH u3
-env LDFLAGS="-L$(brew --prefix openssl)/lib" CFLAGS="-I$(brew --prefix openssl)/include" \
-  pip install --upgrade -r requirements.txt
-```
-
-Initialize PostgreSQL database
-
-```bash
-initdb -E utf8 db/pg-data -U postgres
-psql -U postgres -c "CREATE DATABASE u3_dev;"
-```
-
-Run PostgreSQL locally on port 7000:
-
-```bash
-postgres -D db/pg-data -p 7000
-```
 
 ## Supported scrapers
 
@@ -42,19 +19,34 @@ postgres -D db/pg-data -p 7000
 | [famnit](feeder/spiders/famnit.py) | [famnit.upr.si](http://www.famnit.upr.si)                                      | Done   |
 | [ung](feeder/spiders/ung.py)       | [sabotin.ung.si](http://sabotin.ung.si)                                        | Done   |
 
+## Running with Docker Compose
+
+```bash
+docker-compose run u3 bf -a categories=biologija -L INFO
+```
+
+If you need to rebuild image
+
+```bash
+docker build -t univizor/u3:latest .
+```
+
+> Some crawling options can be seen in [refresh.sh](./bin/refresh.sh).
+
+## Running natively
+
+Please read [NATIVE.md](NATIVE.md).
+
+
 ## Scripts and tools
 
-- [refresh.sh](./refresh.sh) - Script that starts scraping in parallel fashion. New items will be added to collection.
+- [refresh.sh](./bin/refresh.sh) - Script that starts scraping in parallel fashion. New items will be added to collection.
 This script should be ran on periodic intervals via `cron`.
 - [recreate_database.py](./recreate_database.py) - Drops all existing tables, and creates new tables with up-to-date structure.
-- [first_pages.sh](./tools/first_pages.sh) - Creates picture of first pages from all PDFs.
-- [files_for_domain.sh](./tools/files_for_domain.sh) - List local files for specific scrape domain.
-- [list_pdfs.sh](./tools/list_pdfs.sh) - List real local PDFs.
-- [list_no_pdfs.sh](./tools/list_pdfs.sh) - List real local non-PDFs.
 
 ## Configuration
 
-This is default configuration that can be overriden by setting `ENV` variables.
+This is default configuration that can be overwritten by setting `ENV` variables.
 
 ```
 CONCURRENT_REQUESTS = 16
@@ -67,44 +59,10 @@ DOGSTATSD_ADDR = ...
 DOGSTATSD_PORT = ...
 ```
 
-## Docker
-
-Start new PostgreSQL container for meta storage:
-
-```bash
-docker run -ti --rm --name pg --env POSTGRES_DB=u3_dev postgres:latest
-```
-
-Create meta storage tables with [recreate_database.py](recreate_database.py) script:
-
-```bash
-docker run -ti --rm --name u3 --link pg \
-  --env DATABASE_URL="postgresql://postgres:@pg:5432/u3_dev" \
-  --entrypoint "python" \
-  univizor/u3:latest "./recreate_database.py"
-```
-
-Start crawling,... In this example with [bf](feeder/spiders/bf.py) spider.
-
-```bash
-docker run -ti --rm \ 
-  --name u3 \
-  --link pg \
-  --env DATABASE_URL="postgresql://postgres:@pg:5432/u3_dev" \
-  univizor/u3:latest bf -a categories=biologija
-```
-
-> Some other crawling options can be seen in [refresh.sh](./refresh.sh).
-
-If you need to rebuild image
-
-```bash
-docker build -t univizor/u3:latest .
-```
-
 ## Sentry
 
-u3 now supports Sentry integration via [scrapy-sentry](https://github.com/llonchj/scrapy-sentry) library. To use, set the SENTRY_DSN enviromental variable:
+u3 now supports Sentry integration via [scrapy-sentry](https://github.com/llonchj/scrapy-sentry) library.
+To use, set the `SENTRY_DSN` environment variable:
 
 ```bash
 docker run -ti --rm \

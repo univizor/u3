@@ -2,6 +2,8 @@
 from os import getenv, path, getcwd
 from sqlalchemy.engine.url import URL
 
+U3_ENV = getenv("U3_ENV", "production")
+
 # Scrapy settings for startproject project
 #
 # For simplicity, this file contains only settings considered important or

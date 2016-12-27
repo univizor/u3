@@ -7,11 +7,13 @@ services:
 
 install: true
 
-script:
+before_script:
   - echo "Travis branch is $TRAVIS_BRANCH"
-  - docker build -t univizor/u3 .
-  - docker run -it univizor/u3 scrapy -h
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker build -t univizor/u3 .
+
+script:
+  - docker run -ti --rm --name u3 -e U3_ENV=test --entrypoint python univizor/u3 -m unittest discover
 
 after_script:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
