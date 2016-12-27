@@ -69,7 +69,7 @@ def compile_Array_x(element, compiler, **kw):
 
 
 class DBSource(Base):
-    __tablename__ = 'sources' if 'test' in U3_ENV else 'sources_test'
+    __tablename__ = 'sources_test' if 'test' in U3_ENV else 'sources'
     id = Column(UUID, primary_key=True, default=lambda: str(uuid.uuid4()))
     domain = Column(Unicode(100), nullable=False)
     scraped_at = Column(DateTime(timezone=True), default=datetime.utcnow(), nullable=False)

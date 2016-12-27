@@ -28,7 +28,8 @@ ENV U3_USER="u3" \
   U3_HOME="/home/u3" \
   CONCURRENT_REQUESTS="8" \
   DOWNLOAD_DELAY="3" \
-  FILES_STORE="/home/u3/data/files"
+  FILES_STORE="/home/u3/data/files" \
+  U3_ENV="production"
 
 ENV HASHING_ALGORITHM sha256
 
