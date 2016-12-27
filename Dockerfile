@@ -6,7 +6,8 @@ RUN apk add --no-cache -qq libffi gcc postgresql-dev musl-dev bash libffi-dev li
 
 RUN adduser -D -u 3000 u3
 
-RUN mkdir -p /home/u3/{tmp,data/files}
+RUN mkdir -p /home/u3/tmp && \
+  mkdir -p /home/u3/data/files
 
 ADD . /home/u3
 
@@ -20,7 +21,7 @@ RUN pip install dumb-init && \
 
 WORKDIR /home/u3
 
-VOLUME /home/u3/data/files
+VOLUME ["/home/u3/data/files", "/home/u3/tmp"]
 
 RUN chown -R u3:u3 /home/u3
 
