@@ -4,7 +4,9 @@ import arrow
 from feeder.spiders.rul import RUL
 import math
 from scrapy.http import FormRequest
-import os
+import os, glob
+from slugify import slugify
+from feeder.settings import TEMP_FILES_FOLDER
 
 
 class DKUM(RUL):
@@ -29,7 +31,7 @@ class DKUM(RUL):
         return [Request(response.url + "&page=%d" % page) for page in range(1, pages)]
 
     def parse_page(self, response):
-        self.clear_tmp()
+        self.clear_temp()
         urls = set([self.prepare_url(url) for url in response.css("a[href^='Dokument.php']").xpath("@href").extract()])
         return [Request(url, meta={'isConsent': True, 'cookiejar': url}) for url in urls if
                 not self.exists_by({'scraped_url': url})]
@@ -49,28 +51,32 @@ class DKUM(RUL):
             return None
 
         file_name = str(response.headers['Content-Disposition']).split(';')[1].strip().split("=")[1][:-1]
+        file_name = slugify(file_name, to_lower=True) \
+            .replace('-pdf', '.pdf', 1) \
+            .replace('-doc', '.doc', 1)
 
-        with open('tmp/%s' % file_name, 'wb') as f:
+        temp_path = os.path.join(TEMP_FILES_FOLDER, file_name)
+
+        # Writes content to "TEMP_DIR"
+        with open(temp_path, 'wb+') as f:
             f.write(response.body)
-
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-        file_path = (dir_path + '/tmp/%s' % file_name).replace('feeder/spiders', '', 1)
 
         return Source(
             domain=self.domain,
             scraped_at=arrow.utcnow(),
             scraped_url=url,
-            file_urls=['file://%s' % file_path]
+            file_urls=['file://%s' % temp_path]
         )
 
-    def clear_tmp(self):
-        # Remove items in tmp/
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-        file_path = (dir_path + '/tmp/*').replace('feeder/spiders', '', 1)
-        os.system('rm -rf %s' % file_path)
+    def clear_temp(self):
+        """ Removes items in TEMP_DIR """
+        file_path = os.path.join(TEMP_FILES_FOLDER, '*')
+        files = glob.glob(file_path)
+        for file_name in files:
+            os.unlink(file_name)
 
     def __del__(self):
-        self.clear_tmp()
+        self.clear_temp()
 
     def prepare_url(self, url):
         return ('' + self.base_url + '/' + url).split('&')[0]
