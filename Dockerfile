@@ -16,8 +16,8 @@ RUN chown -R u3:u3 /home/u3
 ADD ./bin/run-scrapy.sh /usr/local/bin/run-scrapy.sh
 RUN chmod +x /usr/local/bin/run-scrapy.sh
 
-RUN pip install dumb-init && \
-  pip install --upgrade -r /home/u3/requirements.txt
+RUN pip install --disable-pip-version-check dumb-init && \
+  pip install --disable-pip-version-check --upgrade -r /home/u3/requirements.txt
 
 WORKDIR /home/u3
 
@@ -30,7 +30,9 @@ ENV U3_USER="u3" \
   CONCURRENT_REQUESTS="8" \
   DOWNLOAD_DELAY="3" \
   FILES_STORE="/home/u3/data/files" \
-  U3_ENV="production"
+  U3_ENV="production" \
+  LC_ALL=C.UTF-8 \
+  LANG=C.UTF-8
 
 ENV HASHING_ALGORITHM sha256
 
