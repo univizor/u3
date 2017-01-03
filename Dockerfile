@@ -30,7 +30,9 @@ ENV U3_USER="u3" \
   CONCURRENT_REQUESTS="8" \
   DOWNLOAD_DELAY="3" \
   FILES_STORE="/home/u3/data/files" \
-  U3_ENV="production"
+  U3_ENV="production" \
+  LC_ALL=C.UTF-8 \
+  LANG=C.UTF-8
 
 ENV HASHING_ALGORITHM sha256
 
