@@ -16,8 +16,8 @@ RUN chown -R u3:u3 /home/u3
 ADD ./bin/run-scrapy.sh /usr/local/bin/run-scrapy.sh
 RUN chmod +x /usr/local/bin/run-scrapy.sh
 
-RUN pip install dumb-init && \
-  pip install --upgrade -r /home/u3/requirements.txt
+RUN pip install --disable-pip-version-check dumb-init && \
+  pip install --disable-pip-version-check --upgrade -r /home/u3/requirements.txt
 
 WORKDIR /home/u3
 
