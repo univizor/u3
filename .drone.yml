@@ -1,7 +1,3 @@
-services:
-  docker:
-    image: plugins/docker
-
 pipeline:
   build:
     image: docker:dind
@@ -12,3 +8,8 @@ pipeline:
       - cat Dockerfile
       - sleep 600
       - exit 0
+
+  publish:
+    image: plugins/docker
+    repo: foo/bar
+    tags: [ latest ]
