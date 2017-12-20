@@ -1,0 +1,5 @@
+ build:
+    image: docker:latest
+    pull: true
+    commands:
+      - docker build -t test/u3 .
