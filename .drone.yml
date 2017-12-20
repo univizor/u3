@@ -1,4 +1,5 @@
- build:
+pipeline:
+  build:
     image: docker:latest
     pull: true
     commands:
