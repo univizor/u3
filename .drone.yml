@@ -1,15 +1,21 @@
 pipeline:
   build:
-    image: docker:dind
+    image: docker:latest
     pull: true
     environment:
       - DOCKER_HOST=tcp://0.0.0.0:2375
     commands:
       - cat Dockerfile
-      - sleep 15
+      - sleep 600
       - exit 0
 
   publish:
     image: plugins/docker
     repo: foo/bar
     tags: [ latest ]
+
+services:
+  docker:
+    image: docker:dind
+    command: [ "--storage-driver=vfs", "--tls=false" ]
+    privileged: true
