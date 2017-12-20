@@ -1,7 +1,8 @@
 pipeline:
   build:
-    image: alpine:latest
+    image: docker:latest
     pull: true
     commands:
       - cat Dockerfile
-      - sleep 600
+      - sleep 300
+      - exit 0
