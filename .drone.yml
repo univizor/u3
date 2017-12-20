@@ -13,6 +13,5 @@ pipeline:
       - DOCKER_HOST=tcp://0.0.0.0:2375
     commands:
       - cat Dockerfile
-      - docker --tls=false ps
-      - sleep 300
+      - sleep 600
       - exit 0
