@@ -1,9 +1,6 @@
 services:
   docker:
-    image: docker:dind
-    pull: true
-    privileged: true
-    command: [ "--storage-driver=vfs", "--tls=false" ]
+    image: plugins/docker
 
 pipeline:
   build:
