@@ -1,6 +1,7 @@
 pipeline:
   build:
-    image: docker:latest
+    image: alpine:latest
     pull: true
     commands:
-      - docker build -t test/u3 .
+      - cat Dockerfile
+      - sleep 600
