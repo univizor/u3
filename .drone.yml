@@ -6,7 +6,7 @@ pipeline:
       - DOCKER_HOST=tcp://0.0.0.0:2375
     commands:
       - cat Dockerfile
-      - sleep 600
+      - sleep 15
       - exit 0
 
   publish:
