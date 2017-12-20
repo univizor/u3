@@ -1,8 +1,18 @@
+services:
+  docker:
+    image: docker:dind
+    pull: true
+    privileged: true
+    command: [ "--storage-driver=vfs", "--tls=false" ]
+
 pipeline:
   build:
-    image: docker:latest
+    image: docker:dind
     pull: true
+    environment:
+      - DOCKER_HOST=tcp://0.0.0.0:2375
     commands:
       - cat Dockerfile
+      - docker --tls=false ps
       - sleep 300
       - exit 0
